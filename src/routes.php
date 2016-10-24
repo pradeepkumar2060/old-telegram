@@ -6,6 +6,9 @@ $app->get('/[{category}]', function ($request, $response, $args) {
     $this->logger->info("Slim-Skeleton '/' route");
 
     // Fetch Quote
+    // $db = $this->db;
+    // $stmt = $db->query("SHOW TABLES");
+    // $res = $stmt->fetchAll(PDO::FETCH_ASSOC);
     $quoteClient = new \Quote();
     $quote = $quoteClient->fetchQuote($args['category']);
 
