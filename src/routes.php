@@ -2,9 +2,6 @@
 // Routes
 
 $app->get('/[{category}]', function ($request, $response, $args) {
-    // Sample log message
-    $this->logger->info("Slim-Skeleton '/' route");
-
     // Fetch Quote
     // $db = $this->db;
     // $stmt = $db->query("SHOW TABLES");
@@ -12,6 +9,14 @@ $app->get('/[{category}]', function ($request, $response, $args) {
     $quoteClient = new \Quote();
     $quote = $quoteClient->fetchQuote($args['category']);
 
+    $messages = $this->flash->getMessages();
+
     // Render index view
-    return $this->renderer->render($response, 'index.phtml', array("quote" => $quote) );
+    return $this->renderer->render($response, 'index.phtml', array("quote" => $quote, "messages"=>$messages) );
+})->setName('welcome');
+
+$app->post('/like/{id}', function ($request, $response, $args) {
+    $this->flash->addMessage('liked', true);
+    $router = $this->router;
+    return $response->withRedirect($router->pathFor('welcome'));
 });
