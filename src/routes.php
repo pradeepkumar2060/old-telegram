@@ -8,10 +8,9 @@ $app->get('/[{category}]', function ($request, $response, $args) {
     // $res = $stmt->fetchAll(PDO::FETCH_ASSOC);
     $quoteClient = new \Quote();
     $quote = $quoteClient->fetchQuote($args['category']);
-    $messages = null;
-    try{
+
+    if (session_status() !== PHP_SESSION_NONE) {
         $mesages = $this->flash->getMessages();
-    }catch(\Exception $e){
     }
 
     // Render index view
