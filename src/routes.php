@@ -8,8 +8,11 @@ $app->get('/[{category}]', function ($request, $response, $args) {
     // $res = $stmt->fetchAll(PDO::FETCH_ASSOC);
     $quoteClient = new \Quote();
     $quote = $quoteClient->fetchQuote($args['category']);
-
-    $messages = $this->flash->getMessages();
+    $messages = null;
+    try{
+        $mesages = $this->flash->getMessages();
+    }catch(\Exception $e){
+    }
 
     // Render index view
     return $this->renderer->render($response, 'index.phtml', array("quote" => $quote, "messages"=>$messages) );
