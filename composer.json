@@ -32,8 +32,8 @@
     },
 	"scripts": {
         "start": "php -S 0.0.0.0:8080 -t public public/index.php",
-        "test": "phpunit",
-        "phinx": "phinx"
+        "test": "vendor/bin/phpunit",
+        "phinx": "vendor/bin/phinx"
 	}
 
 }
