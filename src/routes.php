@@ -7,7 +7,7 @@ $app->get('/[{category}]', function ($request, $response, $args) {
     // $stmt = $db->query("SHOW TABLES");
     // $res = $stmt->fetchAll(PDO::FETCH_ASSOC);
     $quoteClient = new \Quote();
-    $quote = $quoteClient->fetchQuote($args['category']);
+    $quote = $quoteClient->fetchQuote(@$args['category']);
 
     if (session_status() !== PHP_SESSION_NONE) {
         $mesages = $this->flash->getMessages();
