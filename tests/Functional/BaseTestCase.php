@@ -32,7 +32,6 @@ class BaseTestCase extends \PHPUnit_Framework_TestCase
      */
     public function runApp($requestMethod, $requestUri, $requestData = null)
     {
-        error_reporting(E_NONE);
         // Create a mock environment for testing with
         $environment = Environment::mock(
             [
