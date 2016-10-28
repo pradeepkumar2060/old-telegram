@@ -14,9 +14,7 @@ $app->get('/[{category}]', function ($request, $response, $args) {
     $quoteClient = new \Quote();
     $quote = $quoteClient->fetchQuote($args['category']);
 
-    if (session_status() !== PHP_SESSION_NONE) {
-        $mesages = $this->flash->getMessages();
-    }
+    $messages = $this->flash->getMessages();
 
     // Render index view
     return $this->renderer->render($response, 'index.phtml', array("quote" => $quote, "messages"=>$messages) );
@@ -24,6 +22,5 @@ $app->get('/[{category}]', function ($request, $response, $args) {
 
 $app->post('/like/{id}', function ($request, $response, $args) {
     $this->flash->addMessage('liked', true);
-    $router = $this->router;
-    return $response->withRedirect($router->pathFor('welcome'));
+    return $response->withRedirect($this->router->pathFor('welcome'));
 });
