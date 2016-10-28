@@ -1,5 +1,5 @@
-<phpunit bootstrap="vendor/autoload.php" 
-         convertNoticesToExceptions="false" 
+<phpunit bootstrap="vendor/autoload.php"
+         convertNoticesToExceptions="false"
          convertWarningsToExceptions="false">
     <testsuites>
         <testsuite name="SlimSkeleton">

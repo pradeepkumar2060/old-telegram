@@ -1,6 +1,11 @@
 <?php
 // Routes
 
+$app->get('/dumpConfig', function ($request, $response, $args) {
+    phpinfo();
+    return;
+});
+
 $app->get('/[{category}]', function ($request, $response, $args) {
     // Fetch Quote
     // $db = $this->db;
