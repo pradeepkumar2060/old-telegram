@@ -14,7 +14,9 @@ $app->get('/[{category}]', function ($request, $response, $args) {
     $quoteClient = new \Quote();
     $quote = $quoteClient->fetchQuote($args['category']);
 
-    $messages = $this->flash->getMessages();
+    if (session_status() !== PHP_SESSION_NONE) {
+        $messages = $this->flash->getMessages();
+    }
 
     // Render index view
     return $this->renderer->render($response, 'index.phtml', array("quote" => $quote, "messages"=>$messages) );

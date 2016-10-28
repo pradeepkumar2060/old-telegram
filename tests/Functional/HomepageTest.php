@@ -13,7 +13,7 @@ class HomepageTest extends BaseTestCase
 
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertContains('Fuzzy Telegram', (string)$response->getBody());
-        $this->assertNotContains('SlimFramework', (string)$response->getBody());
+        $this->assertNotContains('Foo Bar', (string)$response->getBody());
     }
 
     /**
