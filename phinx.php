@@ -8,10 +8,10 @@
             "default_database" => "default",
             "default" => array(
                 "adapter" => "mysql",
-                "host" => getenv("DB_HOST"),
-                "name" => getenv("DB_DATABASE"),
-                "user" => getenv("DB_USERNAME"),
-                "pass" => getenv("DB_PASSWORD")
+                "host" => getenv("RDS_HOSTNAME"),
+                "name" => getenv("RDS_DB_NAME"),
+                "user" => getenv("RDS_USERNAME"),
+                "pass" => getenv("RDS_PASSWORD")
             )
         )
     );
