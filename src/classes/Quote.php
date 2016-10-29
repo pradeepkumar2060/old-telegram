@@ -8,7 +8,7 @@ class Quote{
 
     private $testResponse = '{ "success": { "total": 1 }, "contents": { "quotes": [ { "quote": "If you like what you do, and you’re lucky enough to be good at it, do it for that reason.", "length": "96", "author": "Phil Grimshaw", "tags": [ "inspire", "luck", "reason", "tso-life" ], "category": "inspire", "date": "2016-10-09", "title": "Inspiring Quote of the day", "background": "https://theysaidso.com/img/bgs/man_on_the_mountain.jpg", "id": "j1sPwFauvgEBPe9xEzmT3weF" } ] } }';
 
-    public function __construct($category=null, $db=null){
+    public function __construct($category=null, $db){
         $this->category = $this->validateCategory($category);
         $this->db = $db;
     }
@@ -26,24 +26,19 @@ class Quote{
         $quote = $this->callApi();
 
         // store in the DB:
-        if($this->db){
-            $stmt = $this->db->prepare("INSERT INTO `my_quotes` (`quote_id`, `created`, `category`, `json_blurb`) VALUES(?, NOW(), ?, ?)");
-            $stmt->execute(array($quote['id'], $quote['category'], json_encode($quote)));
-        }
+        $stmt = $this->db->prepare("INSERT INTO `my_quotes` (`quote_id`, `created`, `category`, `json_blurb`) VALUES(?, NOW(), ?, ?)");
+        $stmt->execute(array($quote['id'], $quote['category'], json_encode($quote)));
 
         return $quote;
     }
 
     private function fetchFromDatabase(){
-        if($this->db){
-            $stmt = $this->db->prepare("SELECT * FROM `my_quotes` WHERE DATE(`created`) = DATE(NOW()) AND `category` = ?");
-            $stmt->execute(array($this->category));
-            $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            if(!empty($rows)){
-                return $rows[0];
-            }
+        $stmt = $this->db->prepare("SELECT * FROM `my_quotes` WHERE DATE(`created`) = DATE(NOW()) AND `category` = ?");
+        $stmt->execute(array($this->category));
+        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        if(!empty($rows)){
+            return $rows[0];
         }
-
         return null;
     }
 
