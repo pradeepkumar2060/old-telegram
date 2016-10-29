@@ -9,8 +9,6 @@ class MyNewTable extends AbstractMigration
         $table = $this->table('my_quotes', array('id' => false, 'primary_key' => array('quote_id') ) );
         $table->addColumn("quote_id", "string", array("limit" => 32))
               ->addColumn("created", "datetime")
-              ->addColumn("likes", "integer")
-              ->addColumn("views", "integer")
               ->addColumn("category", "string", array("limit" => 32))
               ->addColumn("json_blurb", "text")
               ->create();

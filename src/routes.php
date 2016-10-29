@@ -1,25 +1,25 @@
 <?php
 // Routes
-
-$app->get('/dumpConfig', function ($request, $response, $args) {
-    phpinfo();
-    return;
+$app->get('/health', function ($request, $response, $args) {
+    return $response->withJson(array("status"=>"I am alive!"));
 });
 
 $app->get('/[{category}]', function ($request, $response, $args) {
     // Fetch Quote
-    // $db = $this->db;
-    // $stmt = $db->query("SHOW TABLES");
-    // $res = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    $quoteClient = new \Quote();
-    $quote = $quoteClient->fetchQuote($args['category']);
+    $quoteClient = new \Quote($args['category'], $this->db);
+    try{
+        $quote = $quoteClient->fetchQuote();
+    }catch(\Exception $e){
+        $errorMessage = $e->getMessage();
+    }
 
+    // Any flash messages?
     if (session_status() !== PHP_SESSION_NONE) {
         $messages = $this->flash->getMessages();
     }
 
     // Render index view
-    return $this->renderer->render($response, 'index.phtml', array("quote" => $quote, "messages"=>$messages) );
+    return $this->renderer->render($response, 'index.phtml', array("quote" => $quote, "messages"=>$messages, "error"=>$errorMessage) );
 })->setName('welcome');
 
 $app->post('/like/{id}', function ($request, $response, $args) {

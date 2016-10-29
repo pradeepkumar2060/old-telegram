@@ -18,10 +18,10 @@ return [
 
         // MySQL Database
         "db" => [
-            "host" => getenv('DB_HOST'),
-            "database" => getenv('DB_DATABASE'),
-            "username" => getenv('DB_USERNAME'),
-            "password" => getenv('DB_PASSWORD')
+            "host" => getenv('RDS_HOSTNAME'),
+            "database" => getenv('RDS_DB_NAME'),
+            "username" => getenv('RDS_USERNAME'),
+            "password" => getenv('RDS_PASSWORD')
         ],
     ],
 ];
