@@ -19,7 +19,7 @@
 
     <!-- Custom Fonts -->
     <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic|Offside" rel="stylesheet" type="text/css">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -35,11 +35,23 @@
     <header id="top" class="header">
         <div class="text-vertical-center">
 
-            <h1>Fuzzy Telegram</h1>
+            <img src="img/logo.png" class="logo" />
+
+            <div class="row"><hr /></div>
 
             <h2 id="quote" data-qod-id="<?php echo $quote['id'] ?>"><?php echo $quote['quote'] ?></h2>
             <h5>&#8212; <?php echo $quote['author'] ?></h5>
-            <br>
+
+            <div class="row">
+            <p>
+            <?php foreach($quote['tags'] as $tag): ?>
+                <span class="label label-default">#<?php echo $tag ?></span>
+            <?php endforeach; ?>
+            </p>
+            </div>
+
+            <div class="row"><hr /></div>
+
             <div class="row">
 
             <?php if($messages['liked']) : ?>
